@@ -1,0 +1,10 @@
+import type {Character,ProactiveChannelSettings,ProactiveImageSettings,ProactiveSettings} from "./types";
+import {inQuietHours} from "./rules";
+
+export const defaultProactiveImageSettings=():ProactiveImageSettings=>({frequency:"low",dailyLimit:1,cooldownHours:24,onlyWhenRelevant:true,useCharacterReference:true,includeMessage:true});
+export const emptyProactiveSettings=():ProactiveSettings=>({timeAware:false,quietStart:"23:00",quietEnd:"08:00",message:{enabled:false},feed:{enabled:false},image:defaultProactiveImageSettings()});
+export function proactiveSettingsOf(character:Character):ProactiveSettings{const value=character.proactiveSettings??emptyProactiveSettings();return{...value,image:{...defaultProactiveImageSettings(),...value.image}}}
+export function validChannel(channel:ProactiveChannelSettings){return !!(channel.enabled&&channel.intervalHours&&channel.intervalHours>=1&&channel.intervalHours<=720&&channel.catchupLimit&&channel.catchupLimit>=1&&channel.dailyLimit&&channel.dailyLimit>=channel.catchupLimit)}
+export function localDayStart(at=Date.now()){const date=new Date(at);date.setHours(0,0,0,0);return date.getTime()}
+export function dueCount(channel:ProactiveChannelSettings,now:number,baseline:number,generatedToday:number,timeAware:boolean,onlineSince:number){if(!validChannel(channel))return 0;const interval=(channel.intervalHours??0)*3600000,last=timeAware?(channel.lastSuccessAt??baseline):Math.max(onlineSince,channel.lastSuccessAt??0),elapsed=Math.max(0,now-last),due=Math.floor(elapsed/interval);return Math.max(0,Math.min(due,channel.catchupLimit??0,(channel.dailyLimit??0)-generatedToday))}
+export function characterDue(character:Character,now:number,counts:{message:number;feed:number},onlineSince:number){const p=proactiveSettingsOf(character);if(inQuietHours(new Date(now),p.quietStart,p.quietEnd))return{message:0,feed:0};return{message:dueCount(p.message,now,character.createdAt,counts.message,p.timeAware,onlineSince),feed:dueCount(p.feed,now,character.createdAt,counts.feed,p.timeAware,onlineSince)}}

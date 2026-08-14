@@ -1,0 +1,24 @@
+{
+    "$schema":  "https://static.cloudbase.net/cli/cloudbaserc.schema.json",
+    "envId":  "matchaphone-d5gjgy87ybfb50382",
+    "functionRoot":  "cloudfunctions",
+    "functions":  [
+                      {
+                          "name":  "music-gateway",
+                          "timeout":  60,
+                          "memorySize":  256,
+                          "runtime":  "Nodejs20.19",
+                          "handler":  "index.main",
+                          "description":  "网易云官方 CLI 音乐网关"
+                      },
+                      {
+                          "name":  "activation-gateway",
+                          "timeout":  10,
+                          "memorySize":  256,
+                          "runtime":  "Nodejs18.15",
+                          "handler":  "index.main",
+                          "description":  "???????????????????",
+                          "installDependency":  false
+                      }
+                  ]
+}

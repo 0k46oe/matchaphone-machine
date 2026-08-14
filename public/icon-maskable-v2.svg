@@ -1,0 +1,22 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Smiling glass of matcha maskable icon">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="48" x2="432" y2="470" gradientUnits="userSpaceOnUse"><stop stop-color="#F8FCF6"/><stop offset="1" stop-color="#DCEBD8"/></linearGradient>
+    <linearGradient id="glass" x1="172" y1="178" x2="340" y2="379" gradientUnits="userSpaceOnUse"><stop stop-color="#FFFFFF" stop-opacity=".94"/><stop offset=".48" stop-color="#F5FBF7" stop-opacity=".66"/><stop offset="1" stop-color="#DAE9DE" stop-opacity=".84"/></linearGradient>
+    <linearGradient id="matcha" x1="256" y1="239" x2="256" y2="364" gradientUnits="userSpaceOnUse"><stop stop-color="#CBE4B5"/><stop offset="1" stop-color="#8FB878"/></linearGradient>
+    <filter id="shadow" x="120" y="332" width="272" height="84" filterUnits="userSpaceOnUse"><feGaussianBlur stdDeviation="11"/></filter>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <circle cx="256" cy="206" r="210" fill="#FFFFFF" fill-opacity=".42"/>
+  <g transform="translate(25.6 25.6) scale(.9)">
+    <ellipse cx="256" cy="378" rx="101" ry="17" fill="#526A58" fill-opacity=".16" filter="url(#shadow)"/>
+    <path d="M164 184H348L331 348C329 367 313 381 294 381H218C199 381 183 367 181 348L164 184Z" fill="url(#glass)" stroke="#81968A" stroke-opacity=".58" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M181 239H331L320 344C319 356 309 365 297 365H215C203 365 193 356 192 344L181 239Z" fill="url(#matcha)"/>
+    <ellipse cx="256" cy="239" rx="75" ry="13" fill="#CFE6BA"/>
+    <ellipse cx="256" cy="237" rx="65" ry="8" fill="#E4F1D7" fill-opacity=".8"/>
+    <ellipse cx="256" cy="184" rx="92" ry="16" fill="#FFFFFF" fill-opacity=".52" stroke="#81968A" stroke-opacity=".58" stroke-width="9"/>
+    <path d="M190 204C194 283 201 331 209 352" fill="none" stroke="#FFFFFF" stroke-opacity=".62" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="225" cy="292" r="8" fill="#58665B"/><circle cx="287" cy="292" r="8" fill="#58665B"/>
+    <path d="M238 311C247 323 265 323 274 311" fill="none" stroke="#58665B" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="211" cy="310" r="10" fill="#F0AEB4" fill-opacity=".38"/><circle cx="301" cy="310" r="10" fill="#F0AEB4" fill-opacity=".38"/>
+  </g>
+</svg>

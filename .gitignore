@@ -1,0 +1,27 @@
+# Dependencies and package-manager caches
+node_modules/
+.pnpm-store/
+
+# Build artifacts and generated output
+dist/
+work/
+outputs/
+*.tsbuildinfo
+
+# Local Codex/runtime state
+.codex/
+.agents/
+.codex-backups/
+
+# Sensitive local material
+private/
+.env
+.env.*
+!.env.example
+
+# Logs and local previews
+*.log
+
+# OS/editor noise
+.DS_Store
+Thumbs.db

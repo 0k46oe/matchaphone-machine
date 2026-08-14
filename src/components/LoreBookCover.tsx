@@ -1,0 +1,3 @@
+import type {LoreBook} from "../core/types";
+const toneOf=(id:string)=>[...id].reduce((sum,char)=>sum+char.charCodeAt(0),0)%8;
+export function LoreBookCover({book,compact=false}:{book:LoreBook;compact?:boolean}){return <span className={`lore-book-cover tone-${toneOf(book.id)} ${compact?"compact":""} ${book.enabled?"":"disabled"}`}><i className="lore-book-binding"/><small>{book.enabled?"WORLD LORE":"PAUSED"}</small><b>{book.name}</b><em>{book.description||`${book.entries.length} 条世界设定`}</em><span>{book.entries.length}</span></span>}

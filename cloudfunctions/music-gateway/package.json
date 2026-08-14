@@ -1,0 +1,14 @@
+{
+  "name": "chacha-music-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@cloudbase/node-sdk": "^3.14.0",
+    "@music163/ncm-cli": "0.1.6",
+    "ffprobe-static": "file:vendor/ffprobe-static"
+  }
+}

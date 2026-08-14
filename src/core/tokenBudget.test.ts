@@ -1,0 +1,44 @@
+import { describe, expect, it } from "vitest";
+import {
+  estimateTextTokens,
+  fitChatItemsToInternalBudget,
+  fitPrioritizedPromptSections,
+} from "./tokenBudget";
+
+describe("internal token budget", () => {
+  it("estimates Chinese and English conservatively without changing content", () => {
+    expect(estimateTextTokens("\u6210\u5e74\u4eba\u4e4b\u95f4\u81ea\u613f\u7684\u4eb2\u5bc6\u5185\u5bb9\u3002")).toBeGreaterThan(8);
+    expect(estimateTextTokens("consensual adult roleplay with quoted text")).toBeGreaterThan(5);
+  });
+
+  it("always preserves system rules and the latest user message", () => {
+    const latest = "LATEST_USER_MESSAGE_WITH_QUOTES_\"KEEP_ME\"";
+    const items = [
+      { role: "system" as const, content: "REQUIRED_SYSTEM_PROTOCOL" },
+      ...Array.from({ length: 160 }, (_, index) => ({
+        role: index % 2 ? "assistant" as const : "user" as const,
+        content: ("OLD_HISTORY_" + index).repeat(900),
+      })),
+      { role: "user" as const, content: latest },
+    ];
+    const fitted = fitChatItemsToInternalBudget(items);
+    expect(fitted.removed).toBeGreaterThan(0);
+    expect(fitted.items[0]?.content).toBe("REQUIRED_SYSTEM_PROTOCOL");
+    expect(fitted.items.at(-1)?.content).toBe(latest);
+  });
+
+  it("drops low-priority Meet sections before required contracts", () => {
+    const fitted = fitPrioritizedPromptSections([
+      { id: "protocol", content: "REQUIRED_JSON_PROTOCOL", required: true },
+      { id: "character", content: "REQUIRED_CHARACTER_CORE", required: true },
+      { id: "latest", content: "REQUIRED_LATEST_USER", required: true },
+      { id: "history", content: "OLD_HISTORY".repeat(2000), priority: 1 },
+      { id: "lore", content: "HIGH_PRIORITY_LORE", priority: 90 },
+    ], 100);
+    expect(fitted.text).toContain("REQUIRED_JSON_PROTOCOL");
+    expect(fitted.text).toContain("REQUIRED_CHARACTER_CORE");
+    expect(fitted.text).toContain("REQUIRED_LATEST_USER");
+    expect(fitted.text).toContain("HIGH_PRIORITY_LORE");
+    expect(fitted.removedSections).toContain("history");
+  });
+});

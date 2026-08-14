@@ -1,0 +1,3 @@
+import {describe,expect,it} from "vitest";
+import {decryptBackup,encryptBackup} from "./githubBackup";
+describe("GitHub encrypted backup",()=>{it("round trips encrypted data",async()=>{const value={hello:"世界",secret:42},encrypted=await encryptBackup(value,"long-passphrase");expect(encrypted).not.toContain("世界");await expect(decryptBackup(encrypted,"long-passphrase")).resolves.toEqual(value)});it("rejects short passwords",async()=>await expect(encryptBackup({},"short")).rejects.toThrow());it("rejects a wrong password",async()=>{const encrypted=await encryptBackup({x:1},"correct-password");await expect(decryptBackup(encrypted,"wrong-password")).rejects.toThrow()})});
