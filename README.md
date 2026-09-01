@@ -7,7 +7,16 @@
 
 ## 在线使用
 
-官方在线地址：
+### 官方在线地址
+
+> **推荐使用 GitHub Pages 公开演示版。**
+> 这是独立的公开演示版本，默认免激活，数据保存在当前浏览器中；使用 AI 功能时，需要自行填写 Provider Base URL、API Key 和模型。它更适合新用户直接体验和从公开源码开始部署。
+
+<https://luvfox50.github.io/matchaphone-machine/>
+
+### 备用在线版本
+
+> CloudBase 链接为历史备用版本，可能与当前 GitHub Pages 公开演示版在激活方式、配置、功能和可用性上存在差异，仅作兼容访问使用。新用户不建议优先使用，也不保证长期可用。
 
 <https://matchaphone-d5gjgy87ybfb50382-1463048417.tcloudbaseapp.com/>
 
